@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import mongooseLoader from "../loaders/mongoose.loader";
 
 export default class Server {
   private app: Application;
@@ -11,6 +12,8 @@ export default class Server {
   }
 
   public start(): void {
+    mongooseLoader();
+
     this.config();
     this.app.listen(Server.PORT, () => {
       console.log(`Server is running on port ${Server.PORT}`);
