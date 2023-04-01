@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import api from "../api/index";
 import mongooseLoader from "../loaders/mongoose.loader";
 
 export default class Server {
@@ -22,5 +23,6 @@ export default class Server {
 
   private config(): void {
     this.app.use(express.json());
+    this.app.use("/api", api());
   }
 }
