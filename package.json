@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc"
+    "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.17",
-    "nodemon": "^2.0.22",
+    "ts-node-dev": "^2.0.0",
     "typescript": "5.0.3"
   },
   "dependencies": {
