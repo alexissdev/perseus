@@ -22,16 +22,7 @@ export default (app: Router): void => {
     return res.status(200).json(users);
   });
 
-  router.get("/:id", async (req: Request, res: Response) => {
-    const user = await getUser(req.params.id);
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
-
-    return res.status(200).json(user);
-  });
-
-  router.post("/create", async (req: Request, res: Response) => {
+  router.post("/", async (req: Request, res: Response) => {
     const userTemplate: User = createUserTemplate(req.body);
     const newUser = await createUser(userTemplate);
     if (!newUser) {
@@ -39,6 +30,15 @@ export default (app: Router): void => {
     }
 
     return res.status(200).json(newUser);
+  });
+
+  router.get("/:id", async (req: Request, res: Response) => {
+    const user = await getUser(req.params.id);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    return res.status(200).json(user);
   });
 
   router.put("/:id", async (req: Request, res: Response) => {

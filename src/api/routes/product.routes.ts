@@ -22,16 +22,7 @@ export default (app: Router): Router => {
     return res.status(200).json(products);
   });
 
-  router.get("/:id", async (req: Request, res: Response) => {
-    const product = await getProduct(req.params.id);
-    if (!product) {
-      return res.status(404).send("Product not found");
-    }
-
-    return res.status(200).json(product);
-  });
-
-  router.post("/create", async (req: Request, res: Response) => {
+  router.post("/", async (req: Request, res: Response) => {
     const productTemplate: Product = createProductTemplate(req.body);
     const newProduct = await createProduct(productTemplate);
     if (!newProduct) {
@@ -39,6 +30,15 @@ export default (app: Router): Router => {
     }
 
     return res.status(200).json(newProduct);
+  });
+
+  router.get("/:id", async (req: Request, res: Response) => {
+    const product = await getProduct(req.params.id);
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+
+    return res.status(200).json(product);
   });
 
   router.put("/:id", async (req: Request, res: Response) => {
