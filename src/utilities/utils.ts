@@ -22,3 +22,15 @@ export const parseEmail = (possibleEmail: any): string => {
   return possibleEmail;
 }
 
+export const isNumber = (possibleNumber: any): boolean => {
+  return typeof possibleNumber === "number" && isFinite(possibleNumber);
+}
+
+export const parseNumber = (value: any): number => {
+  if (!value || !isNumber(value)) {
+    throw new Error("Incorrect or missing value: " + value);
+  }
+
+  return value;
+}
+
