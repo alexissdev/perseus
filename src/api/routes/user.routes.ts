@@ -11,7 +11,9 @@ import {
 
 export default (app: Router): void => {
   const router = Router();
-  app.use("/", async (_req: Request, res: Response) => {
+  app.use("/users", router);
+
+  router.use("/", async (_req: Request, res: Response) => {
     const users: User[] = await getUsers();
     if (!users || users.length === 0) {
       return res.status(404).send("No users found");

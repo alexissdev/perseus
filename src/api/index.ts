@@ -6,6 +6,6 @@ export default (): Router => {
   const app = Router();
   userRoutes(app);
   productRoutes(app);
-
+  
   return app;
 };
