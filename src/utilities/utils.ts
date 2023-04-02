@@ -4,7 +4,7 @@ export const isString = (possibleString: any): boolean => {
 
 export const parseString = (value: any): string => {
   if (!value || !isString(value)) {
-    throw new Error("Incorrect or missing value: " + value);
+    throw new Error("Incorrect or missing string: " + value);
   }
 
   return value;
@@ -28,7 +28,7 @@ export const isNumber = (possibleNumber: any): boolean => {
 
 export const parseNumber = (value: any): number => {
   if (!value || !isNumber(value)) {
-    throw new Error("Incorrect or missing value: " + value);
+    throw new Error("Incorrect or missing number: " + value);
   }
 
   return value;

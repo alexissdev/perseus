@@ -23,8 +23,7 @@ export default (app: Router): void => {
   });
 
   router.get("/:id", async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const user = await getUser(id);
+    const user = await getUser(req.params.id);
     if (!user) {
       return res.status(404).send("User not found");
     }

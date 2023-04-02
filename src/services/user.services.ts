@@ -8,19 +8,25 @@ export const getUsers = async () => {
 
 export const getUser = async (id: string) => {
   const user = await UserSchema.findById(id);
+  if (!user) {
+    return null;
+  }
 
   return user;
 };
 
 export const createUser = async (userTemplate: User) => {
   const user = new UserSchema(userTemplate);
-  await user.save();
+  if (!user) {
+    return null;
+  }
 
+  await user.save();
   return user;
 };
 
 export const updateUser = async (user: User) => {
-  const updatedUser = await UserSchema.findByIdAndUpdate(user.id, user, {
+  const updatedUser = await UserSchema.findByIdAndUpdate(user._id, user, {
     new: true,
   });
 

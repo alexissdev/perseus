@@ -18,7 +18,7 @@ export const createProduct = async (productTemplate: Product) => {
 
 export const updateProduct = async (product: Product) => {
   const updatedProduct = await ProductSchema.findByIdAndUpdate(
-    product.id,
+    product._id,
     product,
     {
       new: true,
