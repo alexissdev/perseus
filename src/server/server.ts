@@ -1,3 +1,4 @@
+import environmentLoader from "../loaders/environment.loader";
 import mongooseLoader from "../loaders/mongoose.loader";
 import expressLoader from "../loaders/express.loader";
 
@@ -7,6 +8,7 @@ export default class Server {
     : 3000;
 
   public start(): void {
+    environmentLoader();
     mongooseLoader();
     expressLoader().listen(Server.PORT, () => {
       console.log(`Server is running on port ${Server.PORT}`);
