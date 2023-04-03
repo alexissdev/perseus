@@ -23,7 +23,7 @@ export default (app: Router): void => {
   });
 
   router.post("/", async (req: Request, res: Response) => {
-    const userTemplate: User = createUserTemplate(req.body);
+    const userTemplate: User = await createUserTemplate(req.body);
     const newUser = await createUser(userTemplate);
     if (!newUser) {
       return res.status(404).send("Error creating user");
@@ -42,7 +42,7 @@ export default (app: Router): void => {
   });
 
   router.put("/:id", async (req: Request, res: Response) => {
-    const userTemplate: User = createUserTemplate(req.body);
+    const userTemplate: User = await createUserTemplate(req.body);
     const updatedUser = await updateUser(userTemplate);
     if (!updatedUser) {
       return res.status(404).send("Error updating user");
