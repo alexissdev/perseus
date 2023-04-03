@@ -11,6 +11,7 @@ export default interface Product extends Model {
 export const ProductSchema = model<Product>(
   "Product",
   new Schema({
+    _id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },
