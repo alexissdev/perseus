@@ -55,3 +55,8 @@ export const register = async (
 
   return token;
 };
+
+export const verifyToken = async (token: string): Promise<string> => {
+  const decoded = jtw.verify(token, config.jwtSecret);
+  return decoded as string;
+}
