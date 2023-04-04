@@ -36,7 +36,13 @@ export default (app: Router): Router => {
 
   router.get("/verify", async (req: Request, res: Response) => {
     try {
-      const { token } = req.body;
+      const token = req.headers["x-access-token"] as string;
+      if (!token) {
+        return res
+          .status(400)
+          .json({ auth: false, error: "No token provided" });
+      }
+
       const decoded = await verifyToken(token);
       if (!decoded) {
         return res.status(400).json({ auth: false, error: "Invalid token" });
