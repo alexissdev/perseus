@@ -3,6 +3,7 @@ import * as jtw from "jsonwebtoken";
 import config from "../config/config";
 import User, { UserSchema } from "../models/user.model";
 import { getUser, createUser } from "./user.services";
+import { createUserTemplate } from "../utilities/user.utils";
 
 export const login = async (
   possibleEmail: string,
@@ -12,6 +13,7 @@ export const login = async (
   if (!user) {
     throw new Error("User not found");
   }
+
   const isPasswordValid = await argon.verify(user.password, possiblePassword);
   if (!isPasswordValid) {
     throw new Error("Password is not valid");
@@ -25,22 +27,22 @@ export const login = async (
 };
 
 export const register = async (
-  id: string,
+  _id: string,
   name: string,
   email: string,
   password: string
 ): Promise<String> => {
-  const documentUser = await getUser(id);
+  const documentUser = await getUser(_id);
   if (documentUser) {
-    throw new Error(`User with id ${id} already exists`);
+    throw new Error(`User with id ${_id} already exists`);
   }
 
-  const userTemplate: User = {
-    _id: id,
+  const userTemplate: User = await createUserTemplate({
+    _id,
     name,
     email,
     password,
-  };
+  });
 
   const user = await createUser(userTemplate);
   if (!user) {
