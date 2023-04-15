@@ -9,7 +9,7 @@ export default interface User extends Model {
 
 export const UserSchema = model<User>(
   "User",
-  new Schema({
+  new Schema<User>({
     _id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
