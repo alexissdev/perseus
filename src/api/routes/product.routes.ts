@@ -1,4 +1,7 @@
 import { Router, Request, Response } from "express";
+
+import authMiddleware from "../middlewares/auth.middleware";
+
 import Product from "../../models/product.model";
 import { createProductTemplate } from "../../utilities/product.utils";
 import {
@@ -22,7 +25,7 @@ export default (app: Router): Router => {
     return res.status(200).json(products);
   });
 
-  router.post("/", async (req: Request, res: Response) => {
+  router.post("/", authMiddleware, async (req: Request, res: Response) => {
     const productTemplate: Product = createProductTemplate(req.body);
     const newProduct = await createProduct(productTemplate);
     if (!newProduct) {
@@ -41,7 +44,7 @@ export default (app: Router): Router => {
     return res.status(200).json(product);
   });
 
-  router.put("/:id", async (req: Request, res: Response) => {
+  router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
     const productTemplate: Product = createProductTemplate(req.body);
     const updatedProduct = await updateProduct(productTemplate);
     if (!updatedProduct) {
@@ -51,7 +54,7 @@ export default (app: Router): Router => {
     return res.status(200).json(updatedProduct);
   });
 
-  router.delete("/:id", async (req: Request, res: Response) => {
+  router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
     const deletedProduct = await deleteProduct(req.params.id);
     if (!deletedProduct) {
       return res.status(404).send("Error deleting product");

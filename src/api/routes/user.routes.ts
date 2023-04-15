@@ -1,4 +1,7 @@
 import { Router, Request, Response } from "express";
+
+import authMiddleware from "../middlewares/auth.middleware";
+
 import User from "../../models/user.model";
 import { createUserTemplate } from "../../utilities/user.utils";
 import {
@@ -22,7 +25,7 @@ export default (app: Router): void => {
     return res.status(200).json(users);
   });
 
-  router.post("/", async (req: Request, res: Response) => {
+  router.post("/", authMiddleware, async (req: Request, res: Response) => {
     const userTemplate: User = await createUserTemplate(req.body);
     const newUser = await createUser(userTemplate);
     if (!newUser) {
@@ -41,7 +44,7 @@ export default (app: Router): void => {
     return res.status(200).json(user);
   });
 
-  router.put("/:id", async (req: Request, res: Response) => {
+  router.put("/:id", authMiddleware, async (req: Request, res: Response) => {
     const userTemplate: User = await createUserTemplate(req.body);
     const updatedUser = await updateUser(userTemplate);
     if (!updatedUser) {
@@ -51,7 +54,7 @@ export default (app: Router): void => {
     return res.status(200).json(updatedUser);
   });
 
-  router.delete("/:id", async (req: Request, res: Response) => {
+  router.delete("/:id", authMiddleware, async (req: Request, res: Response) => {
     const deletedUser = await deleteUser(req.params.id);
     if (!deletedUser) {
       return res.status(404).send("Error deleting user");
