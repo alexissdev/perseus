@@ -1,4 +1,6 @@
 import { Router, Request, Response } from "express";
+
+import config from "../../config/config";
 import { login, register, verifyToken } from "../../services/auth.service";
 
 export default (app: Router): Router => {
@@ -36,7 +38,7 @@ export default (app: Router): Router => {
 
   router.get("/verify", async (req: Request, res: Response) => {
     try {
-      const token = req.headers["x-access-token"] as string;
+      const token = req.headers[config.api.authorizationKey] as string;
       if (!token) {
         return res
           .status(400)
